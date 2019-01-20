@@ -1,6 +1,5 @@
 // import 'babel-polyfill';
-// const express = require("express");
-
+// const express = require("babel-polyfill");
 
 const StarNotary = artifacts.require('./starNotary.sol')
 
@@ -9,9 +8,9 @@ let accounts;
 var owner;
 
 contract('StarNotary', async (accs) => {
-accounts = accs;
-owner = accounts[0];
-instance = await StarNotary.deployed();
+    accounts = accs;
+    owner = accounts[0];
+    instance = await StarNotary.deployed();
 })
 
 it('has correct name', async () => {

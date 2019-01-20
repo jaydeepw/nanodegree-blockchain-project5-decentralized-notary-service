@@ -5,6 +5,8 @@ import '../styles/app.css'
 import { default as Web3 } from 'web3'
 import { default as contract } from 'truffle-contract'
 
+// const contract = require("truffle-contract")
+
 // Import our contract artifacts and turn them into usable abstractions.
 import StarNotaryArtifact from '../../build/contracts/StarNotary.json'
 
@@ -55,7 +57,6 @@ const App = {
 
       accounts = accs
       account = accounts[0]
-
     })
   },
 
