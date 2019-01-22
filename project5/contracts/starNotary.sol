@@ -36,6 +36,14 @@ contract StarNotary is ERC721 {
         return star.name;
     }
 
+    /**
+    * Add a function called exchangeStars, so 2 users can exchange their star tokens.
+    * Do not worry about the price, just write code to exchange stars between users.
+    */
+    function exchangeStars(uint256 _tokenId) public pure returns(string)  {
+        return "";
+    }
+
     function putStarUpForSale(uint256 _tokenId, uint256 _price) public {
         require(ownerOf(_tokenId) == msg.sender);
 
@@ -59,11 +67,6 @@ contract StarNotary is ERC721 {
         }
         starsForSale[_tokenId] = 0;
       }
-
-// Add a function called exchangeStars, so 2 users can exchange their star tokens...
-//Do not worry about the price, just write code to exchange stars between users.
-
-//
 
 // Write a function to Transfer a Star. The function should transfer a star from the address of the caller.
 // The function should accept 2 arguments, the address to transfer the star to, and the token ID of the star.
