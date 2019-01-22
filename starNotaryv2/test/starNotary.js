@@ -7,8 +7,6 @@ let accounts;
 contract('StarNotary', async (accs) => {
     accounts = accs;
     instance = await StarNotary.deployed();
-    console.log("instance: " + instance)
-    console.log("stringify: " + JSON.stringify(instance))
   });
 
   it('can Create a Star', async() => {
