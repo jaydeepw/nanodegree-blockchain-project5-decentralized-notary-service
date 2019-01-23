@@ -39,9 +39,24 @@ contract StarNotary is ERC721 {
     /**
     * Add a function called exchangeStars, so 2 users can exchange their star tokens.
     * Do not worry about the price, just write code to exchange stars between users.
+    * Return true if exchange was successful. false otherwise.
     */
-    function exchangeStars(uint256 _tokenId) public pure returns(string)  {
-        return "";
+    function exchangeStars(uint256 _tokenId1, address user1, 
+        uint256 _tokenId2, address user2) public payable returns(bool)  {
+
+        // Star memory star1 = tokenIdToStarInfo[_tokenId1];
+        // Star memory star1 = tokenIdToStarInfo[_tokenId2];
+
+        // remove entries of star ownership from
+        // the record completely
+        _removeTokenFrom(user1, _tokenId1);
+        _removeTokenFrom(user2, _tokenId2);
+
+        // add the entries for the tokens to swapped
+        // addresses 1->2 and 2->1
+        _addTokenTo(user1, _tokenId2);
+        _addTokenTo(user1, _tokenId2);
+        return true;
     }
 
     function putStarUpForSale(uint256 _tokenId, uint256 _price) public {
