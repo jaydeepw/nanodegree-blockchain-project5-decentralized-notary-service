@@ -21,13 +21,19 @@ const createStar = async () => {
   const instance = await StarNotary.deployed();
   const name = document.getElementById("starName").value;
   const id = document.getElementById("starId").value;
-  await instance.createStar(name, id, {from: account});
+  const symbol = document.getElementById("starSymbol").value;
+  await instance.createStar(name, symbol, id, {from: account});
   App.setStatus("New Star Owner is " + account + ".");
 }
 
 // Add a function lookUp to Lookup a star by ID using tokenIdToStarInfo()
-
-//
+const lookUp = async () => {
+  console.log("Called")
+  const instance = await StarNotary.deployed();
+  const id = document.getElementById("starId").value;
+  let starName = await instance.lookUptokenIdToStarInfo(id);
+  App.setLookupStatus("Star name is " + starName + " for id: " + id);
+}
 
 const App = {
   start: function () {
@@ -50,7 +56,6 @@ const App = {
 
       accounts = accs
       account = accounts[0]
-
     })
   },
 
@@ -59,9 +64,18 @@ const App = {
     status.innerHTML = message
   },
 
+  setLookupStatus: function (message) {
+    const status = document.getElementById('lookupStatus')
+    status.innerHTML = message
+  },
+
   createStar: function () {
     createStar();
   },
+
+  lookupStar: function () {
+    lookUp();
+  }
 
 }
 
