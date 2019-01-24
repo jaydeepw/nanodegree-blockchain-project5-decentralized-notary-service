@@ -8,8 +8,8 @@ contract('StarNotary', async (accs) => {
     accounts = accs;
     instance = await StarNotary.deployed();
   });
-
-/*   it('Can transferStar to another address', async() => {
+  
+  it('Can transferStar to another address', async() => {
     let tokenId = 9;
     let givenName = 'Jays star'
     let fromAddress = accounts[0]
@@ -17,9 +17,9 @@ contract('StarNotary', async (accs) => {
     await instance.createStar(givenName, tokenId, {from: fromAddress})
     console.log("Star: " + givenName + " Owner: " + fromAddress)
     await instance.transferStar(toAddress, tokenId)
-    let possiblyNewOwner = await instance.ownerOf.call(starId)
+    let possiblyNewOwner = await instance.ownerOf.call(tokenId)
     assert.equal(possiblyNewOwner, toAddress);
-  }); */
+  });
   
   it('Can exchange stars between 2 users', async() => {
     let tokenId1 = 6
