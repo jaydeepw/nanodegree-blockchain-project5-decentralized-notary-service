@@ -1,4 +1,5 @@
-# Decentralized Star Notary Service - Starter Code
+# Decentralized Star Notary Service
+## Smart contract on Ethereum Test Network
 
 My Project #5 when pursuing Blockchain Developer Nanodegree
 
