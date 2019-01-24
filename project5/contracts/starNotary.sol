@@ -13,9 +13,9 @@ contract StarNotary is ERC721 {
     mapping(uint256 => Star) public tokenIdToStarInfo;
     mapping(uint256 => uint256) public starsForSale;
 
-    function createStar(string _name, uint256 _tokenId) public {
+    function createStar(string _name, string tokenSymbol, uint256 _tokenId) public {
         // give a symbol to star
-        Star memory newStar = Star(_name, "JSTAR");
+        Star memory newStar = Star(_name, tokenSymbol);
         // Star memory newStar = Star(_name);
 
         tokenIdToStarInfo[_tokenId] = newStar;
