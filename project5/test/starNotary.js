@@ -8,6 +8,18 @@ contract('StarNotary', async (accs) => {
     accounts = accs;
     instance = await StarNotary.deployed();
   });
+
+/*   it('Can transferStar to another address', async() => {
+    let tokenId = 9;
+    let givenName = 'Jays star'
+    let fromAddress = accounts[0]
+    let toAddress = accounts[1]
+    await instance.createStar(givenName, tokenId, {from: fromAddress})
+    console.log("Star: " + givenName + " Owner: " + fromAddress)
+    await instance.transferStar(toAddress, tokenId)
+    let possiblyNewOwner = await instance.ownerOf.call(starId)
+    assert.equal(possiblyNewOwner, toAddress);
+  }); */
   
   it('Can exchange stars between 2 users', async() => {
     let tokenId1 = 6
@@ -21,20 +33,24 @@ contract('StarNotary', async (accs) => {
     await instance.createStar(givenName2, tokenId2, {from: account2})
 
     // Before exchange
-    let star1 = await instance.tokenIdToStarInfo.call(tokenId1);
-    let star2 = await instance.tokenIdToStarInfo.call(tokenId2);
+    /* let star1 = await instance.tokenIdToStarInfo.call(tokenId1);
+    let star2 = await instance.tokenIdToStarInfo.call(tokenId2); */
+    let address1 = await instance.ownerOf.call(tokenId1)
+    let address2 = await instance.ownerOf.call(tokenId2)
 
-    console.log(account1 + " ==> " + star1[0])
-    console.log(account2 + " ==> " + star2[0])
+    // console.log(tokenId1 + " ==> " + address1)
+    // console.log(tokenId2 + " ==> " + address2)
 
     await instance.exchangeStars(tokenId1, tokenId2)
     
     // Before exchange
-    star1 = await instance.tokenIdToStarInfo.call(tokenId1);
-    star2 = await instance.tokenIdToStarInfo.call(tokenId2);
+    let expectedAddress1 = await instance.ownerOf.call(tokenId2)
+    let expectedAddress2 = await instance.ownerOf.call(tokenId1)
 
-    console.log(account1 + " ==> " + star1[0])
-    console.log(account2 + " ==> " + star2[0])
+    // console.log(tokenId1 + " ==> " + address1)
+    // console.log(tokenId2 + " ==> " + address2)
+    assert.equal(expectedAddress1, address1)
+    assert.equal(expectedAddress2, address2)
   });
 
   it('Can lookUptokenIdToStarInfo and return the name', async() => {
