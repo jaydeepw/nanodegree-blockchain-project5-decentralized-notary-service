@@ -15,7 +15,7 @@ contract('StarNotary', async (accs) => {
     let fromAddress = accounts[0]
     let toAddress = accounts[1]
     await instance.createStar(givenName, tokenId, {from: fromAddress})
-    console.log("Star: " + givenName + " Owner: " + fromAddress)
+    // console.log("Star: " + givenName + " Owner: " + fromAddress)
     await instance.transferStar(toAddress, tokenId)
     let possiblyNewOwner = await instance.ownerOf.call(tokenId)
     assert.equal(possiblyNewOwner, toAddress);
