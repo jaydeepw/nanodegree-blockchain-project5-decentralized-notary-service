@@ -9,7 +9,7 @@ contract StarNotary is ERC721 {
         string symbol;
     }
 
-    //  Add a name and a symbol for your starNotary tokens
+    // Add a name and a symbol for your starNotary tokens
     mapping(uint256 => Star) public tokenIdToStarInfo;
     mapping(uint256 => uint256) public starsForSale;
 
@@ -23,16 +23,15 @@ contract StarNotary is ERC721 {
         _mint(msg.sender, _tokenId);
     }
 
-    /** 
-     * Add a function lookUptokenIdToStarInfo, 
+    /**
+     * Add a function lookUptokenIdToStarInfo,
      * that looks up the stars using the Token ID, 
      * and then returns the name of the star.
      */
     function lookUptokenIdToStarInfo(uint256 _tokenId) public view returns(string)  {
-        // no require as anyone can lookup the star of
+        // No require as anyone can lookup the star of
         // their interest
         Star memory star = tokenIdToStarInfo[_tokenId];
-        // return "to be done";
         return star.name;
     }
 
@@ -41,12 +40,10 @@ contract StarNotary is ERC721 {
     * Do not worry about the price, just write code to exchange stars between users.
     * Return true if exchange was successful. false otherwise.
     */
-    function exchangeStars(uint256 _tokenId1, address user1, 
-        uint256 _tokenId2, address user2) public payable returns(bool)  {
+    function exchangeStars(uint256 _tokenId1, uint256 _tokenId2) public payable {
 
-        // Star memory star1 = tokenIdToStarInfo[_tokenId1];
-        // Star memory star1 = tokenIdToStarInfo[_tokenId2];
-
+        address user1 = ownerOf(_tokenId1);
+        address user2 = ownerOf(_tokenId2);
         // remove entries of star ownership from
         // the record completely
         _removeTokenFrom(user1, _tokenId1);
@@ -55,8 +52,7 @@ contract StarNotary is ERC721 {
         // add the entries for the tokens to swapped
         // addresses 1->2 and 2->1
         _addTokenTo(user1, _tokenId2);
-        _addTokenTo(user1, _tokenId2);
-        return true;
+        _addTokenTo(user2, _tokenId1);
     }
 
     function putStarUpForSale(uint256 _tokenId, uint256 _price) public {

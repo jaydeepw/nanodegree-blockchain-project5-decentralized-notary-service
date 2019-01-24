@@ -8,12 +8,41 @@ contract('StarNotary', async (accs) => {
     accounts = accs;
     instance = await StarNotary.deployed();
   });
+  
+  it('Can exchange stars between 2 users', async() => {
+    let tokenId1 = 6
+    let tokenId2 = 7
+    let givenName1 = "Star1"
+    let givenName2 = "Star2"
+    let account1 = accounts[1]
+    let account2 = accounts[2]
 
-  it('Can lookupStarByTokenId and return the name', async() => {
-    let tokenId = 91;
+    await instance.createStar(givenName1, tokenId1, {from: account1})
+    await instance.createStar(givenName2, tokenId2, {from: account2})
+
+    // Before exchange
+    let star1 = await instance.tokenIdToStarInfo.call(tokenId1);
+    let star2 = await instance.tokenIdToStarInfo.call(tokenId2);
+
+    console.log(account1 + " ==> " + star1[0])
+    console.log(account2 + " ==> " + star2[0])
+
+    await instance.exchangeStars(tokenId1, tokenId2)
+    
+    // Before exchange
+    star1 = await instance.tokenIdToStarInfo.call(tokenId1);
+    star2 = await instance.tokenIdToStarInfo.call(tokenId2);
+
+    console.log(account1 + " ==> " + star1[0])
+    console.log(account2 + " ==> " + star2[0])
+  });
+
+  it('Can lookUptokenIdToStarInfo and return the name', async() => {
+    let tokenId = 8;
     let givenName = 'Jays star'
     await instance.createStar(givenName, tokenId, {from: accounts[0]})
     let expectedName = await instance.lookUptokenIdToStarInfo(tokenId)
+    // console.log("expectedName: " + expectedName)
     assert.equal(expectedName, givenName)
   });
 
